@@ -4,3 +4,10 @@ gunicorn
 requests
 Pillow
 flask-cors
+python-dotenv
+Flask-SQLAlchemy
+psycopg2-binary
+Flask-Migrate
+Flask-Login
+PyJWT
+bcrypt
