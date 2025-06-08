@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+.env
+.venv
+
+# macOS
+.DS_Store
+
+# Node.js / Temp
+node_modules/
+package-lock.json
+npm-debug.log*
+temp/
+
+# Generated/Style Images
+public/generated-images/
+public/images/
