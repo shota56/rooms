@@ -1,0 +1,1 @@
+*.データファイルの拡張子 filter=lfs diff=lfs merge=lfs -text

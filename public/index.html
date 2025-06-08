@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>部屋のスタイル変更</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>部屋のスタイル変更</h1>
+            <p>画像をアップロードして、部屋のスタイルを変更しましょう</p>
+        </header>
+        
+        <!-- ステップインジケーター -->
+        <div class="steps-container">
+            <div class="step-indicator">
+                <div class="step active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">画像選択</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">モード選択</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">カスタマイズ</div>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-circle">4</div>
+                    <div class="step-label">結果確認</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 画像選択セクション -->
+        <div class="section" id="image-selection-section">
+            <h2>画像選択</h2>
+            <div class="upload-container">
+                <label for="file-upload" class="upload-button">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    画像をアップロード
+                </label>
+                <input type="file" id="file-upload" accept="image/*">
+            </div>
+            
+            <div id="preview-container" class="preview-container"></div>
+            
+            <div class="history-section">
+                <h3>最近使用した画像</h3>
+                <div id="upload-history" class="upload-history-grid"></div>
+            </div>
+            
+            <div class="button-container">
+                <button id="next-to-mode" class="button primary" disabled>次へ</button>
+            </div>
+        </div>
+        
+        <!-- モード選択セクション -->
+        <div class="section" id="mode-selection-section" style="display: none;">
+            <h2>モード選択</h2>
+            <div class="mode-options">
+                <div class="mode-option" id="style-mode">
+                    <div class="mode-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="mode-title">全体スタイル変更</div>
+                    <div class="mode-description">部屋全体のスタイルを変更します</div>
+                </div>
+                <div class="mode-option" id="area-mode">
+                    <div class="mode-icon">
+                        <i class="fas fa-crop-alt"></i>
+                    </div>
+                    <div class="mode-title">部分変更</div>
+                    <div class="mode-description">部屋の特定の領域を変更します</div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button id="next-to-customize" class="button primary" disabled>次へ</button>
+                <button id="back-to-image" class="button">戻る</button>
+            </div>
+        </div>
+        
+        <!-- カスタマイズセクション（スタイル変更） -->
+        <div class="section" id="style-customize-section" style="display: none;">
+            <h2>スタイルカスタマイズ</h2>
+            <div id="style-options-container" class="style-options-container">
+                <!-- スタイルオプションはJSで動的に生成 -->
+            </div>
+            <div class="button-container">
+                <button id="apply-style" class="button primary" disabled>スタイルを適用</button>
+                <button id="back-to-mode" class="button">戻る</button>
+            </div>
+        </div>
+        
+        <!-- カスタマイズセクション（領域変更） -->
+        <div class="section" id="area-customize-section" style="display: none;">
+            <h2>領域カスタマイズ</h2>
+            <div class="drawing-container">
+                <canvas id="drawing-canvas"></canvas>
+                <div class="drawing-instructions">
+                    <p>変更したい領域を白で塗りつぶしてください</p>
+                </div>
+                <div class="tool-options">
+                    <div class="tool-option">
+                        <label for="brush-size">ブラシサイズ:</label>
+                        <input type="range" id="brush-size" min="5" max="50" value="20">
+                    </div>
+                    <div class="tool-option">
+                        <button id="clear-canvas" class="button">クリア</button>
+                    </div>
+                </div>
+                <div class="prompt-container">
+                    <label for="area-prompt">変更内容:</label>
+                    <textarea id="area-prompt" placeholder="例: 壁を青色に変更、ソファをモダンなデザインに変更など"></textarea>
+                </div>
+                <div class="button-container">
+                    <button id="apply-area" class="button primary" disabled>変更を適用</button>
+                    <button id="back-to-mode-from-area" class="button">戻る</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 結果表示セクション -->
+        <div class="section" id="result-section" style="display: none;">
+            <h2>生成結果</h2>
+            <div class="result-container">
+                <div class="result-item">
+                    <h3>元の画像</h3>
+                    <img id="original-image" alt="元の画像">
+                </div>
+                <div class="result-item">
+                    <h3>生成結果</h3>
+                    <img id="result-image" alt="生成結果">
+                </div>
+            </div>
+            <div class="button-container">
+                <button id="continue-with-original" class="button primary">同じ画像で続ける</button>
+                <button id="download-result" class="button">画像をダウンロード</button>
+                <button id="start-over" class="button">新しい画像をアップロード</button>
+            </div>
+        </div>
+        
+        <!-- ローディングオーバーレイ -->
+        <div id="loading-overlay" class="loading-overlay">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">画像を生成中...</div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
